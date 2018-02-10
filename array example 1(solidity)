@@ -1,0 +1,13 @@
+pragma solidity ^0.4.0;
+contract C {
+   // uint[]  a = new uint[](7); (global declaration we dont need a "memory" keyword)
+    function f() public constant returns(uint[]){
+        uint[] memory a = new uint[](7);
+        //memory is  used to temporary using (within a function)
+       // bytes memory b = new bytes(len);
+         //Here we have a.length == 7 and b.length == len
+        a[6] = 7;
+        a[1] = 8;
+        return a;
+    }
+}
