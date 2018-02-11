@@ -1,0 +1,32 @@
+pragma solidity ^0.4.18;
+
+contract studentupdate {
+    modifier check(uint studId)
+    {
+        require(studId==1001);
+        _;
+    }
+    
+    struct student {
+        
+        string Name;
+        uint age;
+        string fatherName;
+    }
+    
+    mapping (address => student) owners; //student sturct =>provide address ,mapping name is =>owners
+    address[] private ownerdatabase;
+    
+   function setowner(address _address, uint _age, string _Name, string _lName) public {
+        var student = owners[_address];
+        student.Name = _Name;
+        student.age = _age;
+        student.fatherName= _lName;
+        
+        ownerdatabase.push(_address) -1;
+    }
+   function students(address _address,uint studId)check(studId)view public  returns (string,uint,string) {
+        return (owners[_address].Name, owners[_address].age, owners[_address].fatherName);
+    }
+    
+}
