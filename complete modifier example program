@@ -1,0 +1,22 @@
+pragma solidity ^0.4.0;
+contract calculation{
+    modifier calcy(int256 a,int256 b){
+    //assert( (a!=0 && a>0));
+      // assert( (b!=0 && b>0));
+      // { revert(); }
+        require( (a!=0 && a>0));
+       require( (b!=0 && b>0));
+       //if(a!=0 && a>0)
+       //if(b!=0 && b>0)
+       //throw;
+     
+         _;
+    }
+         
+    
+ function calculate(int256 a,int256 b)calcy(a,b) public pure returns(int256,int256,int256,int256){
+        return (a+b,a-b,a*b,a/b);
+              }
+     
+ 
+}
