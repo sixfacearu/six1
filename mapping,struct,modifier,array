@@ -1,0 +1,30 @@
+pragma solidity ^0.4.0;
+contract hr{    
+    struct oops
+       {
+        string Name;
+        uint256 Id;
+        }
+        address ar;
+    mapping(uint256=>oops)inter;
+    //uint256[] arr;
+    
+    modifier check(address ar){
+        require(ar==msg.sender);
+        _;
+    }
+    function ass( address ar,uint256 a,string _Name,uint256 _id)check(ar)public
+    {
+       // ar=msg.sender;
+     inter[a].Name=_Name;
+       inter[a].Id=_id;
+       //arr.push(a)-1;
+    }
+    function hhh(uint256 a)public constant returns(string,uint256)
+    {
+       return(inter[a].Name,inter[a].Id);
+       //return arr;
+        
+    }
+    
+}
