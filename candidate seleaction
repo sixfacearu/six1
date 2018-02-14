@@ -1,0 +1,47 @@
+pragma solidity ^0.4.0;
+contract a
+{
+     uint256 b=1;
+    struct can 
+    {   
+        string name;
+        uint256 canid;    
+    }
+    mapping(uint256=>can)old;
+    mapping(uint256=>can)New;
+    modifier chec(uint256 _canid){
+         if(old[1].canid==_canid)
+         {
+         b++;
+           }  _;
+         
+    }  
+    
+    
+    function odb(string _name,uint256 _canid)public 
+    { 
+        uint256 a=1;
+      old[a].name=_name;
+       old[a].canid=_canid;
+    }
+    function ndp(string _name,uint256 _canid)public 
+    {  
+        uint256 a=1;
+        uint256 b=a;
+        New[a].name=_name;
+        New[a].canid=_canid;
+       /* if(b==1) 
+       { return "new canditate";}
+        else
+         */
+       
+    }
+    function check(uint256 _canid)chec(_canid)public constant returns(string)
+    {
+       if(b==1) 
+        return "new canditate";
+       // else
+        return "already exist";
+        
+    }
+}
