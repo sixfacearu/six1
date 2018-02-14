@@ -1,0 +1,35 @@
+pragma solidity ^0.4.0;
+contract bank{
+    struct owner {
+        
+        uint256 amount;
+        
+    }
+    
+mapping (string => owner)  owne;
+mapping (address => owner) owners;
+    modifier check(address addres) {
+        require(addres == msg.sender);
+        _;
+    }
+    
+    
+    function sender(address addres,string rec,uint256 sendamount)check(addres) public // returns(uint256)
+    {
+         uint256 amount=10000;
+         require(amount>sendamount);
+        owners[addres].amount=amount-sendamount;
+        owne[rec].amount=0;
+        owne[rec].amount=owne[rec].amount+sendamount;
+        // return owners[addres].amount;
+    }
+    function balsender(address addres) public constant returns(uint256) 
+    {
+        return owners[addres].amount;
+    }
+
+    function reciver(string rec)public constant returns(uint256){
+        return owne[rec].amount;
+    }
+}
+   
