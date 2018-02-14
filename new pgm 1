@@ -1,0 +1,83 @@
+pragma solidity ^0.4.18;
+contract Librarybook
+{   address internal admin;
+    function Librarybook()
+    {
+        admin=msg.sender;
+    }
+    struct lib_books
+    {
+        string bookname;
+        string bookAUname;
+        uint available;
+    }
+    struct student
+    {
+        string sname;
+        string bname;
+        uint sbooks;
+        uint time;
+        uint fineamount;
+        bool check;
+    }
+    modifier onlybyadmin()
+    {   
+        require(msg.sender==admin);
+    _;
+    }
+    
+    mapping(uint=>student) public studentdetail;
+    uint[] internal studentids;
+    mapping(uint=>lib_books) public bookdetail;
+    uint[] internal bookids;
+    function setstudentids(uint sid,string sn) public 
+    {
+        studentdetail[sid].sname=sn;
+        studentids.push(sid);
+    }
+        function Setbooks(uint ISBnumber,string _bname,string _baname,uint _avail) public payable onlybyadmin
+    {
+        bookdetail[ISBnumber].bookname=_bname;
+        bookdetail[ISBnumber].bookAUname=_baname;
+        bookdetail[ISBnumber].available=_avail;
+        bookids.push(ISBnumber);
+        
+    }
+    function Getbooks(uint sid,uint isbn) public onlybyadmin
+    { 
+    
+        require(!studentdetail[sid].check);
+        bookdetail[isbn].available--;
+        studentdetail[sid].bname=bookdetail[isbn].bookname;
+        studentdetail[sid].sbooks++;
+        studentdetail[sid].time=now;
+        studentdetail[sid].check=true;
+        
+
+    }
+    function Returnbooks(uint sid,uint isbn) public payable onlybyadmin
+    {
+        uint validity=86400 *7;
+        uint takentime=now-studentdetail[sid].time;
+        if(takentime>validity)
+        {
+            studentdetail[sid].fineamount=(takentime/86400)*1;
+        }
+        if(studentdetail[sid].check)
+        {
+            bookdetail[isbn].available++;
+            studentdetail[sid].sbooks--;
+            delete studentdetail[sid].bname;
+            studentdetail[sid].check=false;
+        } 
+        
+    }
+    function TotalBOOKS() public view returns(uint[])
+    {
+        return bookids;
+    }
+   function Totalstudents() public view returns(uint[])
+    {
+       return studentids;
+    }
+}
