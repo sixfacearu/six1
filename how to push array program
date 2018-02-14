@@ -1,0 +1,22 @@
+pragma solidity ^0.4.0;
+ contract s{
+     uint256 owner;
+     struct add{
+         uint256 a;
+         uint256 b;
+         uint256 c;
+     }
+     mapping(uint256=>add)adds;
+     uint256[] arr;
+     function addss(uint256 owner,uint256 _a,uint256 _b)public {
+         adds[owner].a=_a;
+         adds[owner].b=_b;
+         
+         adds[owner].c=_a+_b;
+         arr.push(adds[owner].c)-1;
+        // return arr;
+     }
+     function ret(uint256 i,uint256 owner)public constant returns(uint256){
+         return arr[i];
+     }
+ }
