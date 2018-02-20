@@ -1,0 +1,47 @@
+pragma solidity ^0.4.0;
+contract bank{
+    
+    address _address;
+    address owner=msg.sender;
+        struct banks{
+            uint256 amount1;
+            uint256 amount;
+            uint256 balance;
+           }
+        mapping(address=>banks)sss;
+        mapping(uint256=>banks)ss;
+        modifier check(address owner){
+            require(msg.sender==owner);
+            _;
+        }
+    function deposite(uint256 amount)public{
+        sss[msg.sender].amount=amount;
+        
+    }
+    function senderamountcheck(address _address)public constant returns(uint256) {
+          return  sss[msg.sender].amount;
+        
+    }
+    function sendamount(uint256 reciveraddress,uint256 amount)public  {
+        if(amount<sss[msg.sender].amount)
+        ss[reciveraddress].amount=amount;
+         ss[12].amount= sss[msg.sender].amount-ss[reciveraddress].amount;
+         //return ss[12].amount;
+        owner=msg.sender;
+ }
+     function ownership(uint256 reciveraddress,uint256 amount1)public check(owner){
+          if(amount1<sss[msg.sender].amount){
+        ss[reciveraddress].amount1=amount1;}
+        ss[1].amount1=ss[reciveraddress].amount1;
+       
+    }
+     function reciver(uint256 reciveraddress)public constant returns(uint256){
+        
+        return ss[reciveraddress].amount1+ss[reciveraddress].amount;
+    }
+      function balance()public constant returns(uint256){
+        
+        return  ss[12].amount- ss[1].amount1;
+    }
+      
+}
